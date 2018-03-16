@@ -17,6 +17,9 @@ public class User {
         this.birthdate = birthdate;
     }
 
+    public User() {
+    }
+
     @Override
     public String toString() {
         return "User{" +
