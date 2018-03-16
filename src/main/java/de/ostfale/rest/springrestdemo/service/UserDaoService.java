@@ -3,9 +3,7 @@ package de.ostfale.rest.springrestdemo.service;
 import de.ostfale.rest.springrestdemo.bean.User;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Uwe Sauerbrei on 15.03.2018
@@ -25,6 +23,18 @@ public class UserDaoService {
 
     public List<User> findAll() {
         return users;
+    }
+
+    public User deleteById(int id) {
+        Iterator<User> iterator = users.iterator();
+        while (iterator.hasNext()) {
+            User user = iterator.next();
+            if (user.getId() == id) {
+                iterator.remove();
+                return user;
+            }
+        }
+        return null;
     }
 
     public User save(User user) {

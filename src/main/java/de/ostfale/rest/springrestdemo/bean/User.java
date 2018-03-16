@@ -1,6 +1,7 @@
 package de.ostfale.rest.springrestdemo.bean;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by Uwe Sauerbrei on 15.03.2018
@@ -27,6 +28,20 @@ public class User {
                 ", name='" + name + '\'' +
                 ", birthdate=" + birthdate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
     }
 
     public Integer getId() {
