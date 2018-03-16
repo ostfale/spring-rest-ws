@@ -1,6 +1,7 @@
 package de.ostfale.rest.springrestdemo.controller;
 
 import de.ostfale.rest.springrestdemo.bean.User;
+import de.ostfale.rest.springrestdemo.exception.UserNotFoundException;
 import de.ostfale.rest.springrestdemo.service.UserDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,11 @@ public class UserResource {
 
     @GetMapping("/user/{id}")
     public User getUserById(@PathVariable int id) {
-        return userDaoService.findById(id);
+        User user = userDaoService.findById(id);
+        if (user != null) {
+            return user;
+        }
+        throw new UserNotFoundException("id-" + id);
     }
 
     @PostMapping("/users")
@@ -39,6 +44,6 @@ public class UserResource {
                 .path("/{id}")
                 .buildAndExpand(savedUser.getId()).toUri();
 
-        return ResponseEntity.created (location).build();
+        return ResponseEntity.created(location).build();
     }
 }
